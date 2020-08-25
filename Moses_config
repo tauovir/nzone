@@ -1,0 +1,72 @@
+==================Moses Config==============
+Git Pull request = 
+moses-dev-khan to moses-dev-aneesh
+
+My git branch = moses-dev-khan
+
+
+==============Tasks=========
+task_id,task_type,task_status,aruments,
+
+
+==============task=========
+task2workflow,status,task_name,planned_start_date,planned_end_date,acutal_start_date,actual_end_date,dependency,
+percentage_finished,task2tg_instance,node_id,task_type,note_detail,task_id, task_function_type,task_function_sub_type,
+
+#======task_notes=======
+note2parent,note_text,note2creator_user,note_type,
+
+#========task_group=======
+task_group_name
+chart_json
+status
+description,
+task_type
+task_group2item_user
+app_user
+
+
+#========task_group_instance=========
+tg_instance2task_group
+planned_start_date,
+tg_instance_creator2user
+status
+pnanned_end_date
+actual_end_date
+tg_instance2item_master
+tg_instance_type,
+name,
+actual_start_date
+tg_instance2workgroup
+app_username,
+tg_instance2biz_org
+
+
+
+
+
+
+#============= at_task========
+at2parent_object
+change
+db_username
+app_username
+change_type
+
+#============at_task_group===
+at2parent_object
+change
+db_username
+app_username
+change_type
+
+#=======at_task_group_instance=====
+at2parent_object
+change
+db_username
+app_username
+change_type
+
+
+
+

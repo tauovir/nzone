@@ -1,0 +1,21 @@
+===================Docker===========
+sudo docker pull busybox
+The pull command fetches the busybox image from the Docker registry and saves it to our system. 
+You can use the docker images command to see a list of all images on your system.
+
+#Docker Run
+Let's now run a Docker container based on this image. To do that we are going to use the almighty docker run command.
+sudo docker run busybox
+
+Wait, nothing happened! Is that a bug? Well, no. Behind the scenes, a lot of stuff happened. When you call run, the Docker client finds the image (busybox in this case), loads up the container and then runs a command in that container. When we run docker run busybox, we didn't provide a command, so the container booted up, ran an empty command and then exited. Well, yeah - kind of a bummer. Let's try something more exciting.
+docker run busybox echo "hello from busybox"
+Nice - finally we see some output. In this case, the Docker client dutifully ran the echo command in our busybox container and then exited it. If you've noticed, all of that happened pretty quickly. Imagine booting up a virtual machine, running a command and then killing it. 
+
+The docker ps command shows you all containers that are currently running.
+sudo docker ps
+docker ps -a
+
+So what we see above is a list of all containers that we ran. Do notice that the STATUS column shows that these containers exited a few minutes ago.
+
+# To sea all command
+sudo docker run --help

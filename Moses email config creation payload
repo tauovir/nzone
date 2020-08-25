@@ -1,0 +1,64 @@
+===========Moses Email Configuration===============
+
+Creation payload
+{"payload":{"name":"Rock Mount","email_type":"Case","description":"Rock Mount decription","wrkgrp_name":"Case BI","company_name":"SARS","poll_frequency":9,"host":"localhost","port":1019,"server_type":"IMAP","email_id":"rock@gmail.com","to_email_id":"torock@yahoo.com","password":"khan123","wrkgrp_id":294,"biz_org_id":15,"employee_id":25036,"emp_first_name":"Case","emp_last_name":"Poller SARS","id":null}}
+
+
+
+
+create table
+
+-- Table: in_use.email_configuration
+
+-- DROP TABLE in_use.email_configuration;
+
+CREATE TABLE leggero.email_configuration_test
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    poll_frequency jsonb,
+    email_id character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    email_type character varying(40) COLLATE pg_catalog."default",
+    server_type character varying(100) COLLATE pg_catalog."default",
+    host character varying(100) COLLATE pg_catalog."default",
+    port integer,
+    status character varying(40) COLLATE pg_catalog."default",
+    password character varying(100) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    name character varying(40) COLLATE pg_catalog."default",
+    create_datetime timestamp without time zone,
+    lastchange_datetime timestamp without time zone,
+    email_config2workgroup integer,
+    email_config2employee integer,
+    polling_on boolean,
+    email_config2user integer,
+    to_email_id character varying(80) COLLATE pg_catalog."default",
+    email_config2biz_org integer,
+    default_for_reply_to boolean,
+    CONSTRAINT email_configuration_pk PRIMARY KEY (id),
+    CONSTRAINT email_config_name_unq UNIQUE (name)
+)
+
+
+
+CREATE TABLE leggero.email_configuration_test3
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    poll_frequency jsonb,
+    email_id character varying(100) COLLATE pg_catalog."default",
+    email_type character varying(40) COLLATE pg_catalog."default",
+    server_type character varying(100) COLLATE pg_catalog."default",
+    host character varying(100) COLLATE pg_catalog."default",
+    port integer,
+    status character varying(40) COLLATE pg_catalog."default",
+    password character varying(100) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    name character varying(40) COLLATE pg_catalog."default",
+    create_datetime timestamp without time zone,
+    lastchange_datetime timestamp without time zone,
+    email_config2workgroup integer,
+    email_config2employee integer,
+    polling_on boolean,
+    email_config2user integer,
+    to_email_id character varying(80) COLLATE pg_catalog."default",
+    email_config2biz_org integer,
+    default_for_reply_to boolean)

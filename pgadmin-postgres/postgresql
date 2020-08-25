@@ -1,0 +1,102 @@
+apt show postgresql
+sudo apt install postgresql postgresql-contrib # sudo apt install postgresql-10 postgresql-contrib
+sudo su - postgres sudo su - postgres
+sudo apt-get install pgadmin4
+pgadmin4
+
+
+#install postgre 
+apt show postgresql
+sudo apt install postgresql postgresql-contrib
+
+# Check postgre sql config file
+
+ls /etc/postgresql/12/main/ # 12 is version
+ #Check postgresql status and command can be used 
+ service postgresql
+ # Goto postgre sql env
+ sudo su postgres
+ psql
+ # See all database
+ \l
+ # list out all the user
+ \du
+ # exit 
+ q
+
+
+##################################install Postgre sql10################
+# Eror unable to locat postgressql-10
+
+    sudo apt-get install wget ca-certificates
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/lsb_release -cs-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+    sudo apt-get update
+    sudo apt-get install postgresql postgresql-contrib
+
+#####################################PGadmin4 instalation#######################
+
+#
+# Setup the repository
+#
+
+# Install the public key for the repository (if not done previously):
+curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+
+# Create the repository configuration file:
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+
+#
+# Install pgAdmin
+#
+
+# Install for both desktop and web modes:
+sudo apt install pgadmin4
+
+# Install for desktop mode only:
+sudo apt install pgadmin4-desktop
+
+# Install for web mode only: 
+sudo apt install pgadmin4-web 
+
+# Configure the webserver, if you installed pgadmin4-web:
+sudo /usr/pgadmin4/bin/setup-web.sh
+
+====================Install PGModeler=============
+sudo apt install pgmodeler
+=======run pgmodeler====
+pgmodeler
+
+
+================Remove Postgresql===========
+sudo apt-get --purge remove postgresql
+sudo apt-get --purge remove postgresql postgresql-doc postgresql-common
+===========================PGADMIN4===================
+pass = khan123
+
+
+sudo apt remove pacakgename
+
+
+
+How to remove postgresql from Ubuntu 18.04.4 LTS:
+
+#1. List the PostgreSQL Packages
+Use the dpkg tool to list packages pertaining to the PostgreSQL setup.
+
+dpkg -l | grep postgres
+#2. Delete the PostgreSQL Packages
+In Step 1, all of the software packages related to the PostgreSQL install are shown. To remove and delete them all with one command, 
+Start with the
+
+apt-get --purge remove command
+
+Step 3:  Verifying the Deletion of PostgreSQL
+
+dpkg -l | grep postgres
+
+
+How to remove pgAdmin 4 from Ubuntu 18.04.4 LTS
+1.sudo apt autoremove pgadmin4
+
+

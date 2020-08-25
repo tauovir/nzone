@@ -1,0 +1,70 @@
+================================================Run Server==============================
+/home/khan/nyalazone/RaptorProject/raptor/Raptor/appserver/raptor
+ng serve
+
+/home/khan/nyalazone/RaptorProject/raptor/Raptor/dbserver
+python Leggero_App.py
+
+/home/khan/nyalazone/RaptorProject/raptor/Raptor/dds_server
+python app.py
+
+
+
+======================Configuration File===========================
+commons/Leggaro_Config.xml
+
+
+
+=======================Missing Packages=============================
+sudo apt-get install python-dev
+missing packages while running dds_server
+pip install networkx==2.2
+pip install dicttoxml
+pip install xmltodict==0.12.0
+ip install XlsxWriter==1.1.8
+pip install python-Levenshtein
+
+
+
+
+#====================Make Python2 Virtaul Env==============
+easy_install --version
+virtualenv -p /usr/bin/python test_env
+#Change password in PostGres
+sudo -i -u postgres psql
+
+
+=====================Leggero password===========
+user = admin
+pass = admin
+
+email_type #
+email_id #
+server_type#
+host#
+port#
+status
+password #
+description#
+name#
+polling_on
+poll_frequency
+app_username
+email_configuration2project
+
+
+
+{"payload":{"name":"Gergeo Black22","email_type":"Case","description":"Gerge balck","poll_frequency":6,"host":"127.0.0.0","port":2021,"server_type":"IMAP","email_id":"rock@gmail.com","password":"mana1203","status":"Active","email_configuration2project":2,"id":null}}
+
+
+{"payload":{"name":"Gergeo Black22","email_type":"Case","description":"Gerge balck","wrkgrp_name":"Case BI","company_name":"SARS2","poll_frequency":6,"host":"127.0.0.0","port":2021,"server_type":"IMAP","email_id":"rock@gmail.com","to_email_id":"torock@yahoo.com","password":"mana1203","wrkgrp_id":294,"biz_org_id":15,"employee_id":25036,"emp_first_name":"Case","emp_last_name":"Poller SARS","id":null}}
+
+
+
+
+
+
+
+
+
+

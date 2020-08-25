@@ -1,0 +1,148 @@
+======================Create Table and import csv file in postgres using console============
+
+
+# Connect to console
+sudo su postgres
+ psql
+ # See all database
+ \l
+ # Connect to specific DB
+ \c BD_name
+
+
+
+postgres=# CREATE TABLE leggero.test3 
+
+(id numeric(5),
+Name varchar(100), 
+
+Sex varchar(30), 
+
+Age numeric(5), 
+
+Fare numeric(5),
+Cabin varchar(50),
+Embarked varchar(50)
+);
+
+# Import csv file to test3 table
+\COPY leggero.test3 FROM '/home/khan/nyalazone/RaptorProject/solrTrain.csv' DELIMITER ',' CSV HEADER;
+
+
+CREATE TABLE leggero.retail_test4
+
+(InvoiceNo varchar(50),
+StockCode varchar(100), 
+
+Description varchar(200), 
+
+Quantity numeric(5), 
+
+InvoiceDate varchar(100),
+UnitPrice numeric(50),
+CustomerID BIGINT,
+Country varchar(50)
+);
+\COPY leggero.retail_test4 FROM '/home/khan/Downloads/ColaborationTest/online retail.csv' DELIMITER ',' CSV HEADER;
+
+
+
+
+CREATE TABLE leggero.sales_test1
+
+(id numeric(6),
+area_type varchar(100), 
+availability varchar(200), 
+location varchar(150), 
+size varchar(100),
+society varchar(150),
+total_sqft varchar(150),
+bath numeric(5),
+balcony numeric(5),
+price numeric(6)
+);
+
+
+\COPY leggero.sales_test1 FROM '/home/khan/Downloads/ColaborationTest/sales_data_13000.csv' DELIMITER ',' CSV HEADER;
+
+====================Organization============================
+CREATE TABLE leggero.org_test5
+
+(id numeric(6),
+ACTIVEIND varchar(100), 
+BUSINESSSTARTDATE varchar(200), 
+CEONAME varchar(150), 
+CREATEDBY varchar(100),
+
+CREATEDDATE varchar(100),
+FINANCIALEFFECTIVEDATE varchar(100),
+ISX_ID varchar(100),
+
+LANGUAGE_X_REF_ID varchar(100),
+ORGANISATION_STATUS_X_REF_ID varchar(100),
+ORGANISATION_X_REF_ID varchar(100),
+OWNERSHIPTYPEDATE varchar(100),
+OWNERSHIPTYPE_X_REF_ID varchar(100),
+PREFERED_CONTACTTYPE_ID varchar(100),
+
+P_SECTOR_SUB_GROUP_X_REF_ID varchar(100),
+REGISTEREDNAME varchar(100),
+REGISTRATIONDATE varchar(100),
+SETA_X_REF_ID varchar(100),
+SHORTNAME varchar(100),
+
+SICCODE_X_REF_ID varchar(100),
+SOURCE_ID varchar(100),
+STATUSDATE varchar(100),
+
+SUB_DISCIPLINE_X_REF_ID varchar(100),
+S_SECTOR_SUB_GROUP_X_REF_ID varchar(100),
+TRADENAME varchar(100),
+TRANSLATEDNAME varchar(100),
+
+UPDATEBY varchar(100),
+UPDATEDDATE varchar(100)
+);
+
+
+
+\COPY leggero.org_test5 FROM '/home/khan/nyalazone/RaptorProject/org3.csv' DELIMITER ',' CSV HEADER;
+
+
+
+=================Reatil=======================
+
+CREATE TABLE leggero.retail_test1
+
+(id numeric(10),
+Country varchar(100), 
+CustomerID numeric(10),
+Description varchar(200),
+InvoiceDate varchar(100),
+InvoiceNo varchar(150),
+Quantity varchar(100),
+StockCode varchar(50),
+UnitPrice numeric(6)
+);
+
+\COPY leggero.retail_test1 FROM '/home/khan/Downloads/TitanicRetailData/retailCSV.csv' DELIMITER '@' CSV HEADER;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

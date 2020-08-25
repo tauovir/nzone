@@ -1,0 +1,30 @@
+===================SETUP-HCL=============
+ Create virtual environment as usual we do
+ git clone https://tauovir707@bitbucket.org/nyalazone/hlcapp.git
+cd hlcapp
+git branch
+git checkout -b khan_workforce
+get pull from aneesh_workforce branch
+source env/bin/activate
+pip install -r requirements.txt 
+place env.service_ts.ts in /home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/appserver/hlc-app/src/app/services
+place Leggero_config.xml to /home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/commons
+sudo apt-get install postgis
+NOte : change file name 'env.service_ts..ts' which was given to  env.service.ts beacuse 'env.service.ts' that file name is being used
+Note: Similarly,change Leggero_Config_xml.xml to Leggero_Config.xml
+# Replace path with you acutual local path
+python setup.py develop
+npm i
+npm rebuild node-sass`
+
+Finally 
+python hlc_app.py
+ng serve -o
+
+
+==================Renma Credentilas===========
+
+Romanprovider
+emial = roman101@gmail.com
+
+

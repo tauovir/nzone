@@ -1,0 +1,12 @@
+==============Get child-parent============
+1> get child-parent():
+return {child:parent}
+
+get ancestors(leaf_id,parent_length)
+if parent_length == none:
+return all parent:
+elase according to length
+
+
+now .read data from cashe
+

@@ -1,0 +1,135 @@
+curl "localhost:9200/_cat/indices?v"
+
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": { "match": { "address": "mill lane" } }
+}
+'
+
+
+
+=============================Flattened==========================================
+curl -X PUT "localhost:9200/appdexa2?pretty" -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "company": {
+        "type": "flattened"
+      }
+    }
+  }
+}
+'
+curl -X POST "localhost:9200/appdexa2/_doc/1?pretty" -H 'Content-Type: application/json' -d'
+{
+  "name": "Nayalazone solution for data management.",
+  "company": {
+    "priority": "urgent",
+    "release": ["v1.2.5", "v1.3.0"],
+    "timestamp": {
+      "created": 1541458026,
+      "closed": 1541457010
+    }
+  }
+}
+'
+
+#==========================Search==============
+# Querying the top-level flattened field searches all leaf values in the object:
+
+curl -X POST "localhost:9200/appdexa/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "term": {"company": "urgent"}
+  }
+}
+'
+
+#To query on a specific key in the flattened object, object dot notation is used:
+
+curl -X POST "localhost:9200/appdexa/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "term": {"labels.release": "v1.3.0"}
+  }
+}
+'
+
+======Create Index========
+PUT index_name?pretty
+
+=====================================Get all Recotds================
+
+curl -X GET "localhost:9200/sales1/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+    "query": {
+        "match_all": {}
+    }
+}
+'
+========================Total documentts================
+curl -X GET "localhost:9200/sales1/_count?pretty"
+
+=============Delete All Documents==================
+curl -X POST "localhost:9200/sales1/_delete_by_query?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match_all": {}
+  }
+}
+'
+#========================== Elastic Api=====================
+# Search
+GET /sales1/_search
+# Get Silgle record
+curl -XGET 'localhost:9200/sales1/sale/408?pretty'
+
+
+==========================Create with Mapping==============
+
+
+curl -X PUT "localhost:9200/formatter1?pretty" -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "properties": { 
+      "format1": { 
+    "properties": {
+      "Name": {"type":  "text"},
+      "Sex": {"type":  "text"},
+      "Age": {"type":  "integer"},
+      "Fare": {"type":  "float"},
+      "Cabin": {"type":  "text"},
+      "Embarked": {"type":  "text"}
+    }
+      }
+    }
+  }
+}
+'
+=====================================MAP====================
+
+curl -X PUT "localhost:9200/map1?pretty" -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "properties": {
+      "Name": {"type":  "text"},
+      "Sex": {"type":  "text"},
+      "Age": {"type":  "integer"},
+      "Fare": {"type":  "float"},
+      "Cabin": {"type":  "text"},
+      "Embarked": {"type":  "text"}
+    }
+  }
+}
+'
+
+
+
+
+
+
+
+

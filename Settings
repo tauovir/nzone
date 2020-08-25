@@ -1,0 +1,32 @@
+set up xamp in ubuntu
+Unix command
+see file permission
+ls -al
+ executable permission
+sudo chmod +x file_name
+sudo ./xamp-linux......
+
+rstart xampp
+cd /opt/lampp
+sudo ./manager-linux-x64.run
+==========write php code====
+cd /opt/lampp/htdocs
+create php file
+then change file permission to executable
+
+
+====================Solr==============
+solr-8> bin/solr start
+solr-8> bin/solr stop
+
+
+============Env============
+***create env
+virtualenv env
+***check python
+which python3
+***activale env
+source env/bin/activate
+***deactivate
+deactivate
+

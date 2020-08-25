@@ -1,0 +1,30 @@
+======================Moses Setup===========
+1>Create MosisProject folder, and enter into it
+2> Now Create virtual env for python2
+easy_install --version
+virtualenv -p /usr/bin/python test_env
+3> activate environment
+4> install requirement.txt
+pip install -r dce_requirements.txt 
+
+5> goto main folder and run setup file
+python setup develop
+
+6> place Leggero_config.xml in common folder and make new directories as per the given path.and then change existing folder location to your created folder location
+example ( "logs" "moses path" at env level)
+
+# Install rabbit
+sudo apt-get install rabbitmq-server
+7> Go to notification folder and run
+python notification_task_adder.py 
+# Run this command to queue notification
+celery -A notification_trigger_server worker --loglevel=info -n worker_asi_crm_demo 
+
+the add environment angular folder.
+
+==================Run Server==================
+ notification > celery -A notification_trigger_server worker --loglevel=info -n worker_asi_crm_demo    # 
+ notification > python notification_task_adder.py 
+ 
+ dbserver > python dce_app.py
+ appserver/dce> ng serve -o

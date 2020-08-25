@@ -1,0 +1,12 @@
+pgadmin
+email = taukir707@gmail.com
+pass = khan123
+user = taukir707
+
+=======Postgres=====
+user = postgres
+pass = khan123
+=====Run PgModeler====
+pgmodeler
+
+

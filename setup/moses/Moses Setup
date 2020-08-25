@@ -1,0 +1,53 @@
+======================Moses Setup===========
+1>Create MosisProject folder, and enter into it
+2> Now Create virtual env for python2
+easy_install --version
+virtualenv -p /usr/bin/python test_env
+3> activate environment
+4> install requirement.txt
+pip install -r dce_requirements.txt 
+
+5> goto main folder and run setup file
+python setup develop
+
+6> place Leggero_config.xml in common folder and make new directories as per the given path.and then change existing folder location to your created folder location
+example ( "logs" "moses path" at env level)
+
+# Install rabbit
+sudo apt-get install rabbitmq-server
+7> Go to notification folder and run
+python notification_task_adder.py 
+# Run this command to queue notification
+celery -A notification_trigger_server worker --loglevel=info -n worker_asi_crm_demo 
+
+the add environment angular folder.
+Place env.service.ts  into /home/khan/nyalazone/MosesNew/dce/DCE/appserver/dce/src/app/dce-service
+
+# Runn>
+MosesNew/dce/DCE/appserver/dce> npm i
+
+# make update in envservice.ts  if dropdown_list updated
+dropdown_list -> check any update
+
+==========To Create whoose indeces Run========
+MosesNew/dce/DCE/coreclasses>python create_employee_index.py 
+MosesNew/dce/DCE/coreclasses>python create_potential_member_index.py 
+
+#============Add this to Legeroconfig.xml==========
+ <LEAD>
+      <DEFAULT_TASK_WORKGROUP>317</DEFAULT_TASK_WORKGROUP>
+  </LEAD>
+  
+  in
+  PROJECT_CONFIG	<Tag>
+==================Run Server==================
+ notification > celery -A notification_trigger_server worker --loglevel=info -n worker_asi_crm_demo    # 
+ notification > python notification_task_adder.py 
+ 
+ dbserver > python dce_app.py
+ appserver/dce> ng serve -o
+ 
+ ============Login in Pgadmin for moses========
+ m  = 3cfd436919bc3107d68b912ee647f341	# double hashed
+ upate password = Khan@123
+
