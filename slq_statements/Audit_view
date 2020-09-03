@@ -1,0 +1,19 @@
+
+ ================++Final================
+    SELECT emp.id as employee_id,
+    p.id AS person_id,
+    concat(p.first_name, ' ', p.middle_name, ' ', p.last_name) AS person_full_name,
+    pdo.role ->>'start_date' AS person_div_start_date,
+    pdo.role ->> 'end_date' AS person_div_end_date,
+    concat(pdo.id,p.id,emp.id)::bigint as id,
+    pdo.status,
+    divorg.name AS division_name,
+    biz_org.id AS biz_org_id,
+    biz_org.company_name
+   FROM in_use.employee emp
+     JOIN in_use.person p ON p.id = emp.employee2person
+     JOIN in_use.person_div_org pdo ON pdo.person_div_org2person = p.id
+     JOIN in_use.div_org divorg ON divorg.id = pdo.person_div_org2div_org
+     JOIN in_use.biz_org biz_org ON biz_org.id = divorg.div_org2biz_org
+  WHERE ((pdo.role ->> 'end_date')::timestamp without time zone) < now();
+    

@@ -1,0 +1,10 @@
+=======================+Postgres==================
+Extension : sudo apt-get install postgresql-12-postgis-2.4
+check Vresion psql -V
+select version();
+
+for extension gis issue follow below link
+https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-debian/
+
+Import database using client
+pg_restore -d hlc_02_09_2020 /home/khan/Downloads/backup/HLC/new_02-09_2020/hlc0209.sql
