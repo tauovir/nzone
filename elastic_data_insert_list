@@ -1,0 +1,110 @@
+localhost:9200/provider_core_data/_search?pretty&pretty -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "term": {
+      "person_id": 1434
+    }
+  }
+}
+
+biz = 576
+div_id = 1033
+
+
+1034
+
+398
+1477
+
+39814771034
+
+39814771035
+39814771036
+
+39414781022
+
+3821431962
+
+
+add_division
+add_individual_provider
+add_practitioner
+add_booking_feedback
+
+
+individualprovider, add_division,create_individual provider(done)
+create_virtaul clinic(done)
+publish_event(done)
+update_provider (HLC_Handle_data)
+Create_practitioner (done)
+member_feedback
+
+link_member :(HLC_Data)
+
+
+
+search_query
+
+http://localhost:9200/provider_core_data_3/_search/ 63?source_content_type=application/json&source={"query":{"match_all":{}}}
+http://localhost:9200/provider_core_data_3/_search?q=provider_id:382
+
+link_member_provider
+update_provider_details
+
+
+
+GET /proxy20/_search?pretty
+{
+  "size": 5, 
+    "query": {
+        "match":{"hlc_provider_type":"internal_external"}
+    }
+}
+
+
+GET /proxy20/_doc/11539075581182?pretty
+
+{
+  "size": 2, 
+  "aggs": {
+    "rating2": { "sum": { "field": "ratings_data.rating" } }
+  }
+}
+
+
+
+POST /proxy20/_search?pretty
+{
+  "size": 2, 
+  "query": {
+                        "bool": {
+                        "must":{
+                        "match": {"search_col":"booker"}
+                        }
+                        }
+                    },
+  
+  "aggs": {
+    "rating": { "sum": { "field": "ratings_data.rating" } }
+  }
+}
+
+GET /proxy20/_doc/11539075581182?pretty
+{
+  "aggs": {
+    "avg_rating": {
+      "terms": {
+        "field": "ratings_data.rating",
+        "order": { "max_play_count": "desc" }
+      },
+      "aggs": {
+        "max_play_count": { "max": { "field": "ratings_data.rating" } }
+      }
+    }
+  }
+}
+
+
+
+
+

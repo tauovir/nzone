@@ -1,4 +1,6 @@
 =======================+Postgres==================
+sudo su postgres
+
 Extension : sudo apt-get install postgresql-12-postgis-2.4
 check Vresion psql -V
 select version();

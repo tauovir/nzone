@@ -1,0 +1,41 @@
+========================get_flask_user_dict used in service instead of hlc_roles_data===================
+
+CreateDisciplineAssessment
+GetAllProviderAssessments
+DeactivateDisciplineAssessment
+GetAllDiscplineProvider
+GetAllEmployees
+GetProfileDetails
+GetAllEvents
+GetEngagementMembers
+GetAllEngagmentRoles
+GetBizOrg
+GetAllAssessmentRoles
+GetAllGroupRolesWithProviders
+GetAllMultispecialty (/v1/get_all_multispecialty)
+GetAttemptedAnswerCountV2
+GetMPGGroupRoles
+GetPatientGroupsForProvider
+SearchProvider
+GetAllPractitioner
+GetAllIndividualProvider
+GetHomepageWidgets
+GetEngagementInstance
+
+role_data = get_flask_user_dict()  # New way to get roles_data
+rdd_data = role_data['rdd']
+
+
+
+
+get_assessments_dates_for_person_with_provider
+get_assessments_attemped_for_corporate
+get_all_assessment_data  (Not called)
+search_group
+get_all_multispecialty_schedule
+get_assessments_for_corporate
+get_all_group_roles
+get_internal_providers_engagement
+
+=====================================
+
