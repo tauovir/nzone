@@ -10,3 +10,31 @@ https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-debian/
 
 Import database using client
 pg_restore -d hlc_02_09_2020 /home/khan/Downloads/backup/HLC/new_02-09_2020/hlc0209.sql
+
+
+
+pg_restore -d moses_30_10 /home/khan/Downloads/backup/HLC/new_02-09_2020/hlc0209.sql
+
+
+
+==================Add This filed when provider update=============Create pe ho gya h==============
+professional_description = person table
+professional_registration_board = provider_certs
+only for provider (update)
+
+===============================================]=================================
+work on update provider(url:update_provider_detail) and update practitioner
+get discipline id frm provider_discipline = list1
+
+get discipline id frm classification_extension = list1=2
+ if both list are same ,no operation
+ if list1 nhi h, list2 mai h, then insert to provider_discipline
+ if list1 mani  h, list2 mai nhi h, then remove from provider_discipline
+ 
+
+
+
+
+
+pg_restore -d hlc_19_11 /home/khan/Downloads/hlc_19_11.sql
+

@@ -1,0 +1,39 @@
+====================Celery=============
+Check register
+celery --loglevel=INFO --settings=celeryconfig
+
+===================See Task=================
+celery worker -A project --loglevel=DEBUG
+
+
+===================start==============
+celery -A tasks worker --loglevel=INFO
+
+
+
+
+===================Run Existing Celery in HLC================
+communication_manager>celery -A Send_Mail.celery worker --loglevel=info
+
+communication_manager>celery -A test_class.celery worker --loglevel=info
+
+
+===============New Celery Config==============
+celery -A notification_trigger_server worker -Q email_sender,provider_search_index,push_notification,timed_notification --loglevel=info
+from folder HLCAPP/hlcapp/HLCAPP/notification_helpe
+
+python notification_server.py  from folder HLCAPP/hlcapp/HLCAPP/notification_helper
+
+================================
+celery -A notification_trigger_server worker -Q email_sender,provider_search_index,push_notification,elastic_corporate_member_index,elastic_member_index --loglevel=info
+
+
+
+celery -A notification_trigger_server worker -Q email_sender,provider_search_index,push_notification,timed_notification,elastic_corporate_member_index,elastic_member_index --loglevel=info
+
+
+
+celery worker -A test_class --loglevel=DEBUG
+
+===================Assessemnt================
+

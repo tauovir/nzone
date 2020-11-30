@@ -1,0 +1,118 @@
+SELECT DISTINCT provider.id AS provider_id,person.id AS person_id
+   FROM in_use.provider provider
+     JOIN in_use.biz_org biz_org ON provider.provider2biz_org = biz_org.id
+     JOIN in_use.div_org div_org ON div_org.div_org2biz_org = biz_org.id
+     JOIN in_use.div_org_address ON div_org.id = div_org_address.this_object2div_org
+     JOIN in_use.person_div_org person_divorg ON div_org.id = person_divorg.person_div_org2div_org
+     JOIN in_use.person person ON person_divorg.person_div_org2person = person.id
+     LEFT JOIN in_use."user" user_data ON person.id = user_data.user2person
+	 WHERE provider.id IN (
+	 SELECT DISTINCT provider.id AS provider_id
+   FROM in_use.provider
+     LEFT JOIN in_use.provider_disciplines ON provider_disciplines.this_object2provider = provider.id
+	 WHERE provider_disciplines.id  is Null
+	)
+	
+
+
+insert into in_use.provider_disciplines (
+  this_object2person,
+  this_object2provider,
+  this_object2discipline,
+  start_date,
+  end_date,
+  create_datetime,
+	lastchange_datetime
+)  SELECT
+    DISTINCT person.id AS person_id,
+    provider.id AS provider_id,
+   	1,now(),(NOW() + interval '9 year'),now(),now()
+   FROM in_use.provider provider
+     JOIN in_use.biz_org biz_org ON provider.provider2biz_org = biz_org.id
+     JOIN in_use.div_org div_org ON div_org.div_org2biz_org = biz_org.id
+     JOIN in_use.div_org_address ON div_org.id = div_org_address.this_object2div_org
+     JOIN in_use.person_div_org person_divorg ON div_org.id = person_divorg.person_div_org2div_org
+     JOIN in_use.person person ON person_divorg.person_div_org2person = person.id
+     LEFT JOIN in_use."user" user_data ON person.id = user_data.user2person
+	 WHERE provider.id IN (
+	 SELECT DISTINCT provider.id AS provider_id
+   FROM in_use.provider
+     LEFT JOIN in_use.provider_disciplines ON provider_disciplines.this_object2provider = provider.id
+	 WHERE provider_disciplines.id  is Null
+	)
+	
+==================================Copy Row===================
+
+ INSERT INTO in_use.email_content( 
+   content, subject, create_datetime, lastchange_datetime, plain_content, target_metadata, email_type
+)
+SELECT  content, subject, create_datetime, lastchange_datetime, plain_content, target_metadata, email_type
+FROM in_use.email_content WHERE id=8;
+
+
+UPDATE in_use.email_content SET subject = 'provider_upload_prescription_onscreen' where id = 37;
+
+
+
+=========================
+SELECT 
+    person_id, 
+    full_name,
+    COUNT(*) occurrences
+FROM in_use.elastic_load_corporate_member_data_view
+GROUP BY
+   person_id, 
+    full_name
+HAVING 
+    COUNT(*) > 1;
+    
+    
+    
+==============================Select===================
+ SELECT person.id AS person_id,
+    concat_ws(''::text, person.id, employee.id) AS id,
+    concat_ws(' '::text, person.first_name, person.last_name) AS full_name,
+    person.dob,
+    person.national_id,
+    person.gender,
+    to_date(to_char(person.create_datetime, 'YYYY-MM-DD'::text), 'YYYY-MM-DD'::text) AS create_date,
+    person.passport_number,
+	subq.biz_org_id,
+    subq.division_data,
+        CASE
+            WHEN _user.status = 2 THEN 'Verified'::text
+            ELSE 'Unverified'::text
+        END AS status
+   FROM in_use.employee employee
+     JOIN in_use.person person ON employee.employee2person = person.id
+	 
+ 	JOIN (SELECT person_div_org.person_div_org2person AS div_person_id,
+ 	bizorg.id as biz_org_id,
+	json_agg(json_build_object('div_name', div_org.name, 'company_name', bizorg.company_name)) AS division_data
+   FROM in_use.person_div_org person_div_org
+     JOIN in_use.div_org div_org ON div_org.id = person_div_org.person_div_org2div_org
+     JOIN in_use.biz_org bizorg ON bizorg.id = div_org.div_org2biz_org
+	 group by person_div_org.person_div_org2person,bizorg.id) AS subq oN subq.div_person_id = person.id
+     LEFT JOIN in_use."user" _user ON _user.user2person = person.id;
+	 
+	 
+=========================Group by===================
+ 
+ SELECT person_div_org.person_div_org2person AS person_id,
+ 	bizorg.id,
+	json_agg(json_build_object('col1', div_org.name, 'col2', bizorg.company_name)) AS item
+   FROM in_use.person_div_org person_div_org
+     JOIN in_use.div_org div_org ON div_org.id = person_div_org.person_div_org2div_org
+     JOIN in_use.biz_org bizorg ON bizorg.id = div_org.div_org2biz_org
+	 group by person_div_org.person_div_org2person,bizorg.id
+	 
+     
+	 
+	
+
+ 
+ 
+
+
+
+

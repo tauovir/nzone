@@ -1,0 +1,56 @@
+ # 	print("Request:",request)
+        # print("Headers:",request.headers)
+        print("Host:", request.host.split(':')[0])
+        # print("Remote address",request.remote_addr)
+        # print("Full Url:",request.host)
+        
+        
+        
+        
+        
+        
+        {"consultation_type": ["Face to face at my practice"], "skills": ["Addiction psychiatrist"], "type": [{"value2parent_value": 107337, "itemName": "Industrial Psychology", "id": 107341}], "temporary_provider_type": "", "specialist_type": "Fitness Professional", "provider_subtype1": ""}
+        
+        
+ ===========Web_authorisation_config.===========       
+ EMAIL_TOKEN_ENCRYPT
+ 
+ 
+ 
+ {"consultation_type": ["Face to face at my practice"], "skills": ["Abdominal Radiology", "Acupuncturist", "Addiction psychiatrist"], "type": [{"value2parent_value": 107332, "itemName": "Radiologist", "id": 107464, "itemValue": "Radiologist"}], "temporary_provider_type": "", "specialist_type": "Medical Professional", "provider_subtype1": ""}
+ 
+ 
+ 
+ [{"value2parent_value": 107332, "itemName": "Radiologist", "id": 107464, "itemValue": "Radiologist"}]
+ 
+ 
+ {"consultation_type": ["Face to face at my practice"], "skills": ["AIDS", "Acupuncturist"], "type": [{"value2parent_value": 107332, "itemName": "Allergist", "id": 107353, "itemValue": "Allergist"}], "temporary_provider_type": "", "specialist_type": "Medical Professional", "provider_subtype1": ""}
+ 
+
+ send_member_register_mail
+ 
+ 
+ 
+ 
+ ===================================
+ 
+ user_name
+ p
+ 
+ es/ts
+ 
+ UTC 
+ 
+ 
+ 9:45(south)   13:15(india)
+ 
+ 
+ 
+ Refer link: http://localhost:4200/provider-booking/Ik16a3d8QHxNVFExT1E9PXxAfExURT0i
+ 
+ 
+ 
+ 
+ 
+ 
+ 

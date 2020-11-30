@@ -108,3 +108,8 @@ GET /proxy20/_doc/11539075581182?pretty
 
 
 
+
+
+"ctx._source.gender=params.gender;ctx._source.location_coor=params.location_coor;"
+                          "ctx._source.hlc_provider_type=params.hlc_provider_type;ctx._source.search_col = params.search_col;"
+                          "ctx._source.provider_status=params.provider_status",

@@ -138,9 +138,12 @@ curl -X PUT "localhost:9200/map1?pretty" -H 'Content-Type: application/json' -d'
 
 
 ==============================DELETE Index=========================
-curl -X DELETE "localhost:9200/proxy17?pretty"
+curl -X DELETE "localhost:9200/provider_search_v3?pretty"
+
+curl -X DELETE -u elastic:khan123 "localhost:9200/search_corporate_member_index?pretty"
 
 
+ 
 ====================GET Mapping Schema=============
 curl -X GET "localhost:9200/my-index-000001/_mapping?pretty"
 
@@ -206,6 +209,117 @@ GET /proxy20/_doc/11539075581182?pretty
     }
   }
 }
+
+
+
+
+
+
+PUT /final_provider_data2/_settings{"index.blocks.read_only_allow_delete": null}
+
+
+
+curl -X PUT "localhost:9200/final_provider_data2/_settings?pretty" -H 'Content-Type: application/json' -d'{ "index.blocks.read_only_allow_delete": null}
+'
+
+=======================Setting for alloaw===============================
+curl -X PUT "localhost:9200/provider_search_v1/_settings?pretty" -H 'Content-Type: application/json' -d'
+{
+  "index.blocks.read_only_allow_delete": null
+}
+'
+
+
+curl -X PUT  -u elastic:khan123 "localhost:9200/provider_search_v1/_settings?pretty" -H 'Content-Type: application/json' -d'
+{
+  "index.blocks.read_only_allow_delete": null
+}
+'
+
+======================Check My policy==================
+curl -X GET "localhost:9200/_ilm/policy?pretty"
+
+
+curl -X GET "localhost:9200/_ilm/status?pretty"
+
+
+
+
+
+====================================Aggregation==========================
+GET /provider_search_v5/_search?pretty
+{
+  
+  
+  "aggs": {
+    "rating": { 
+      "terms": { 
+        "field": "person_id"
+      },
+        "aggs": {
+                      "average_age": {
+                            "avg": {
+                                "field": "ratings_data.rating"
+                            }
+                        }
+                    }
+      }
+  }
+}
+
+
+
+
+GET /provider_search_v5/_search?pretty
+{
+  
+  "query": {
+                        "bool": {
+                        "must":{
+                        "match": {"divorg_name":"Capetown"}
+                        }
+                        }
+                    },
+  "aggs": {
+    "rating": { 
+      "terms": { 
+        "field": "person_id"
+      },
+        "aggs": {
+                      "average_age": {
+                            "avg": {
+                                "field": "ratings_data.rating"
+                            }
+                        }
+                    }
+      }
+  }
+}
+
+
+
+============================Set Xpack==================
+#-------------------------XPack Security----------------------------------------
+
+xpack.security.enabled: true
+
+#===================================Set All passward=============
+In built passord: elastic,apm_system,kibana,kibana_system,logstash_system,beats_system,remote_monitoring_user.
+
+user: elastic, password :khan123
+user: apm_system, password :khan123
+user: kibana_system, password :khan123
+user: logstash_system, password :khan123
+user: beats_system, password :khan123
+user: remote_monitoring_user, password :khan123
+user: elastic, password :khan123
+
+================Enable X-pact=============================
+first need to put "xpack.security.enabled: true" to config.yml file
+restart the server and then run below command
+bin/elasticsearch-setup-passwords interactive
+
+
 
 
 

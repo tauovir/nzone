@@ -1,0 +1,107 @@
+Pending Task
+booking last slot isseu
+/send_member_register_mail
+
+
+
+
+===============Elastic Remaining Operation=================
+add_division at multi_specialist
+
+
+corporate_assessment_analytics_home_query
+
+
+
+corporate_assessment_analytics_home_query
+
+get_assessments_for_corporate
+
+
+ser
+
+schedule
+11 bje ka h tau 11:30 dikhne chanhiye
+
+
+
+nurse six
+new provider
+
+Ranjeet kumar:1467
+Ranjeet kapoor
+
+
+profile_descript:
+		
+professinal_description
+professinal_detail:professinal_description(onboarding privider)
+
+professional_registration_board(toglle)
+
+
+==================Add This filed when provider update=============Create pe ho gya h==============
+professional_description = person table
+professional_registration_board = provider_certs
+only for provider (update)
+
+===============================================]=================================
+work on update provider(url:update_provider_detail) and update practitioner
+get discipline id frm provider_discipline = list1
+
+get discipline id frm classification_extension = list1=2
+ if both list are same ,no operation
+ if list1 nhi h, list2 mai h, then insert to provider_discipline
+ if list1 mani  h, list2 mai nhi h, then remove from provider_discipline
+ 
+
+====================04-11-2020=======================
+remove Scheduled:
+case 1:
+Detete a day schedule where there is no booking(this schedude may be recreated)
+case 2:
+if there is boking then, provider firsr cancek it the remove this schedule
+there are some status(check)
+services : get possible removaible schedule
+	: remove schedule
+
+
+
+
+
+
+get_all_schedule
+get_booking
+
+green:available
+blue: booked
+grey : slot has expire
+red : persn_id -1 (provider bloc block)
+yellow : 
+
+
+average_rating
+
+
+exception_list_3
+decorator,
+
+===========================Widget========
+
+=====================Disha talked on 26-11-2020=============
+external(provider)
+
+inviting,registering on is on
+
+
+
+payment promt
+
+super admin
+
+===call to disha=======
+
+
+
+
+

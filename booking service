@@ -1,0 +1,358 @@
+from HLCAPP.dbserver.HLC_Data_Helper import HLCDataHelper
+from HLCAPP.dbserver.HLC_ORM import *
+from HLCAPP.dbserver.flask_app import dbsession
+from HLCAPP.coreclasses.booking import BookingObj
+from HLCAPP.coreclasses.multi_attribute_identifiers import Booking_ident, Booking_list_ident
+from HLCAPP.coreclasses.booking_list import BookingListObj
+from datetime import datetime,date
+from HLCAPP.coreclasses.booking_transaction import BookingTransactionObj
+from HLCAPP.dbserver.HLC_Engagement_Plan_Handler import EngagementHelper
+from HLCAPP.coreclasses.group import GroupObj
+from HLCAPP.notification_helper.email_content_extension import EmailContentObjExtend
+from HLCAPP.interface.encrypt_string import encode_text_role, decode_text
+from HLCAPP.coreclasses.feedback import FeedbackObj
+from HLCAPP.dbserver.document_service import DocumenttHandler
+from HLCAPP.core_services.service_statics import *
+from HLCAPP.coreclasses.prescription_documents_v2 import PrescriptionDocuments
+from HLCAPP.core_services.provider_core_search_data_helper import ProviderCoreSearchAsyncAPI
+from HLCAPP.notification_helper.push_notification_payload import get_push_notification_payload
+
+class BookingService:
+
+    def __init__(self):
+        self.session = dbsession
+        self.data_helper = HLCDataHelper()
+
+    def create_booking(self, person_id, division_id, booking_date, start_time, slot_data, bookee_id,
+                                reference_details, company_name, phone_number, engagement_data):
+        booking_ident = Booking_ident(person_id, division_id, booking_date, start_time, 1)
+        booking_obj = BookingObj(booking_ident=booking_ident)
+        booking_rec, booking_id, transaction_rec = booking_obj.create_booking(slot_data, bookee_id, reference_details,
+                                                             phone_number, engagement_data, company_name)
+
+        if booking_rec.booking2assessment != None:
+            default_group = self.session.query(DefaultGroups).filter(DefaultGroups.default_group2person == person_id,
+                                                                     DefaultGroups.default_group2div_org == division_id).\
+                                                                first()
+            if default_group:
+                group_obj = GroupObj(default_group.default_group2group)
+                group_obj.update_group_members([transaction_rec.booking_for_person])
+
+        #TODO Use Encoded Data Here.
+        token_data_base64 = encode_text_role({
+            'person_id': transaction_rec.booking_by_person,
+            'booking_transaction_id': transaction_rec.id,
+            'booking_table_id': booking_rec.id
+        })
+        email_obj = EmailContentObjExtend(email_content_type='provider_booking_new')
+        email_obj.fire_notification({
+            'NotiBookingView': [{
+                'colname': 'booking_id',
+                'operator': '==',
+                'value': transaction_rec.booking_id
+            }
+            ]
+        }, email_key_in_data='user_name', extra_data={'token_data': token_data_base64})
+
+
+        save_data = booking_obj.save()
+        save_data.update({'booking_id': booking_id})
+        email_content_type_list = [MEMBER_BOOKING_CONFIRMED_ONSCREEN, PROVIDER_BOOKING_CONFIRMED_ONSCREEN]
+        self.__send_push_notification_request(email_content_type_list,transaction_rec.id)
+        return save_data
+
+    def __send_push_notification_request(self,email_content_type_list, booking_transaction_id):
+        try:
+            for email_content_type in email_content_type_list:
+                obj = EmailContentObjExtend(email_content_type=email_content_type)
+                payload = get_push_notification_payload(email_content_type, booking_transaction_id)
+                obj.fire_notification(payload, email_key_in_data='email')
+
+            return {"errCode": 0, "msg": "Notification added to queue."}
+        except Exception as e:
+            return {'errCode': 1, 'msg': 'error occurred:' + str(e)}
+
+
+    def block_slot(self, person_id, division_id, booking_date, start_time, slot_data, bookee_id, type='block'):
+        booking_ident = Booking_ident(person_id, division_id, booking_date, start_time, 1)
+        booking_obj = BookingObj(booking_ident=booking_ident)
+        if type == 'block':
+            retdata = booking_obj.block_slot(slot_data)
+        else:
+            retdata = booking_obj.revoke_slot(slot_data)
+        save_data = booking_obj.save()
+        return save_data
+
+    @staticmethod
+    def convert_rec_to_json(rec, booking_list_ident, timeformat):
+        schedule_meta = rec['schedule']
+        schedule_data = schedule_meta['schedule_data']
+        schedule_slot = schedule_data[0]
+
+        slots = {k: [] for k in schedule_slot['slots'].keys()}
+        booking_timeout = {k: datetime.now().strftime(timeformat) for k in slots.keys()}
+
+        data_json = {'slot_duration': schedule_slot['slot_duration'],
+                     'price': schedule_meta.get('price', 0),
+                     'start_time': schedule_slot['start_time'],
+                     'end_time': schedule_slot['end_time'],
+                     'currency': 'ZAR',
+                     'booking_timeout': {"slots": booking_timeout},
+                     'num_participants': schedule_meta.get('num_participants', 1),
+                     'booking_class_name': schedule_meta.get('class_name', None),
+                     'schedule': {"slots": slots},
+                     'booking2person': booking_list_ident.person_id,
+                     'booking2provider': schedule_meta['provider_id'],
+                     'booking2div_org': booking_list_ident.division_id,
+                     'booking_status': booking_list_ident.booking_status,
+                     'booking_date': schedule_meta['booking_date']}
+        return data_json
+
+    @staticmethod
+    def convert_dummy_rec_to_json(rec, booking_list_ident):
+        data_json = {
+            'booking_date': rec['booking_date'],
+            'booking2provider': rec['provider_id'],
+            'booking2person': booking_list_ident.person_id,
+             'booking2div_org': booking_list_ident.division_id,
+            'booking_status': booking_list_ident.booking_status,
+            'schedule': rec['schedule']
+        }
+        return data_json
+
+    def add_schedule(self, payload):
+        rec = payload[0]['schedule']
+        booking_list_ident = Booking_list_ident(rec['person_id'], rec['division_id'], rec['booking_status'])
+
+        datarecs = [BookingService.convert_rec_to_json(_rec, booking_list_ident, self.data_helper.hlc_date_format)
+                    for _rec in payload]
+        obj = BookingListObj(booking_list_ident)
+        obj.create_schedule(datarecs)
+        save_data = obj.save()
+        save_data.update({'num_recs': len(payload)})
+        return save_data
+
+    def add_dummy_rec(self, rec):
+        booking_list_ident = Booking_list_ident(rec['person_id'], rec['division_id'], rec['booking_status'])
+        datarec = [BookingService.convert_dummy_rec_to_json(rec, booking_list_ident)]
+        obj = BookingListObj(booking_list_ident)
+        obj.add_update_dummy_rec(datarec)
+        save_data = obj.save()
+        return save_data
+
+    def mark_booking_attendance(self, booking_transaction_id):
+        #TODO Get booking table id here.
+        booking_trans_rec = self.session.query(BookingTransaction).filter(BookingTransaction.id == booking_transaction_id).first()
+        if not booking_trans_rec:
+            return {"errCode":0, "msg": str(RecordNotFound(booking_transaction_id, 'BookingTransactionObj'))}
+        obj = BookingTransactionObj(booking_trans_rec.booking_transactions2booking, booking_trans_rec.id)
+        transaction_rec = obj.mark_attendance()
+
+        if transaction_rec.booking_transactions_engagement_instance:
+            engagement_instance_rec = self.session.query(EngagementInstance). \
+                filter(EngagementInstance.id == transaction_rec.booking_transactions_engagement_instance). \
+                first()
+            engagement_obj = EngagementHelper()
+            engagement_response = engagement_obj.complete_activity(engagement_instance_rec.instance2engagement,
+                                                                   engagement_instance_rec.instance2activity,
+                                                                   engagement_instance_rec.instance2person,
+                                                                   commit_flag=False)
+
+        save_data = obj.save()
+        return save_data
+
+    def get_data_for_booking_cancel(self, booking_token_data):
+        decoded_text = decode_text(booking_token_data)['data']
+        rec = self.session.query(BookingHistoryView).filter(BookingHistoryView.id == decoded_text['booking_transaction_id']).first()
+        rec = orm_to_dict_v2(rec) if rec else {}
+        return {"errCode":0, "msg": rec}
+
+    def cancel_booking(self, booking_token_data):
+        decoded_text = decode_text(booking_token_data)['data']
+        booking_obj = BookingObj(booking_tbl_id=decoded_text['booking_table_id'])
+        transaction_rec = booking_obj.cancel_booking(decoded_text['booking_transaction_id'])
+
+        #Resetting the engagement booking status to inital state, which is 2, user can now book the slot again.
+        if transaction_rec.booking_transactions_engagement_instance:
+            engagement_instance_rec = self.session.query(EngagementInstance). \
+                filter(EngagementInstance.id == transaction_rec.booking_transactions_engagement_instance). \
+                first()
+            engagement_instance_rec.booking_status = 2
+
+        retdata = booking_obj.save()
+        retdata['msg'] = 'Successfully Cancelled Booking.'
+        return retdata
+
+    def add_feedback_for_booking(self,options):
+        #TODO Create feedback class and submit feedback for the booking.
+        required_filed = ['rating','comment','booking_transaction_id']
+        feedback_obj = FeedbackObj()
+        booking_transaction_id = options['booking_transaction_id']
+        options['feedback2booking_transaction'] = options.pop('booking_transaction_id')
+        flag = feedback_obj.is_exist(options['feedback2booking_transaction'])
+        if flag:
+            raise RecordAlreadyExist(options['feedback2booking_transaction'] ,'Feedback')
+        feedback_obj.create_feedback(options)
+        resp = feedback_obj.save()
+        #elasticsearch
+        self.__add_feedback_to_elasticsearch(booking_transaction_id)
+
+        # ============send onscreen notification
+        email_content_type = MEMBER_BOOKING_FEEDBACK_ONSCREEN
+        obj = EmailContentObjExtend(email_content_type=email_content_type)
+        payload = get_push_notification_payload(email_content_type, booking_transaction_id)
+        obj.fire_notification(payload, email_key_in_data='email')
+
+        return resp
+
+    # Elasticsearch
+    def __add_feedback_to_elasticsearch(self,booking_transaction_id):
+        obj = ProviderCoreSearchAsyncAPI()
+        obj.send_request('add_rating', {'booking_transaction_id': booking_transaction_id})
+
+
+    def get_member_booking_feedback(self,booking_transaction_id):
+        result = self.session.query(Feedback).filter(Feedback.feedback2booking_transaction == booking_transaction_id).\
+            order_by(desc(Feedback.lastchange_datetime)).all()
+        final_recs = [orm_to_dict_v2(item) for item in result] if result else []
+        return {"errCode": 0, "msg": final_recs}
+
+
+    def upload_booking_member_documents_old(self, options):
+        """
+        This function stored documents of member booking
+        Option :
+        :param options:
+        :return:
+        """
+        dh = DocumenttHandler()
+        document_list = options['documents']
+        booking_transaction_id = options['booking_transaction_id']
+        try:
+            for doc in document_list:
+                profile_picture = doc['document_data']
+                _, b64data = profile_picture['file_data'].split(',')
+                doc_result = dh.store_data(profile_picture["file_name"],BOOKING_TRANSACTION_DOCUMENT_TYPE,
+                                           booking_transaction_id,
+                                           doc['document_identifier'], b64data, commit_flag=False)
+        except Exception as e:
+            return {'errCode': 1, 'msg': 'Invalid file format.'}
+        dh.save()
+        return dh.get_all_document_names(BOOKING_TRANSACTION_DOCUMENT_TYPE, booking_transaction_id)
+
+    def upload_booking_member_documents(self, options,role_data):
+        """
+        This function stored documents of member booking in waiting room
+        Option :
+        :param options:
+        :return:
+        """
+        pres_obj = PrescriptionDocuments()
+        document_list = options['documents']
+        booking_transaction_id = options['booking_transaction_id']
+        user_id = role_data['user']
+        document_type = MEMBER_WAITING_ROOM_DOCUMENT
+
+        try:
+            prescrip_rec = self.__get_prescription_data(booking_transaction_id)
+        except RecordNotFound as e:
+            return {"errCode":1,"msg":str(e)}
+        prescription_id = prescrip_rec.id
+        pres_obj.store_data(user_id, prescription_id, document_type, document_list)
+        try:
+            pres_obj.save()
+        except Exception as e:
+            return {"errCode": 1, "doc_data": str(e)}
+        documents_rec = pres_obj.get_document_for_prescription(prescription_id,document_type)
+        return {"errCode": 0, "doc_data": documents_rec}
+
+    def __get_prescription_data(self,booking_transaction_id):
+        prescrip_rec = self.session.query(TablePrescription). \
+            filter(TablePrescription.prescription2booking_transaction == booking_transaction_id).first()
+        if not prescrip_rec:
+            raise RecordNotFound(booking_transaction_id, 'prescription')
+        return prescrip_rec
+
+
+    def get_member_booking_documents(self, option):
+        """
+        This function is used to get member waiting romm  documents
+        :param option:
+        :return:
+        """
+        booking_transaction_id = option['booking_transaction_id']
+        pres_obj = PrescriptionDocuments()
+        try:
+            prescrip_rec = self.__get_prescription_data(booking_transaction_id)
+        except RecordNotFound as e:
+            return {"errCode":1,"msg":str(e)}
+
+        documents_rec = pres_obj.get_document_for_prescription(prescrip_rec.id, MEMBER_WAITING_ROOM_DOCUMENT)
+        return {"errCode": 0, "doc_data": documents_rec}
+
+    def cancel_member_booking(self, booking_transaction_id, hlc_roles_data):
+        person_id = hlc_roles_data['person']
+        profile_name = hlc_roles_data['profile_name']
+        # if profile_name != 'member' or profile_name != 'corporate member':
+        #     return {'errCode':1,'msg':str(InvalidAuthorization('profile'))}
+
+        booking_rec = self.session.query(BookingTransaction). \
+            filter(BookingTransaction.id == booking_transaction_id).first()
+        booking_rec = orm_to_dict_v2(booking_rec)
+        print("person_id",person_id)
+        print("booking_rec['booking_by_person']:",booking_rec['booking_by_person'] )
+        if booking_rec['booking_by_person'] != person_id:
+            return {'errCode': 1, 'msg': str(InvalidAuthorization('person_id'))}
+
+        booking_table_id = booking_rec['booking_transactions2booking']
+        booking_obj = BookingObj(booking_tbl_id=booking_table_id)
+        transaction_rec = booking_obj.cancel_booking(booking_transaction_id)
+
+        # Resetting the engagement booking status to inital state, which is 2, user can now book the slot again.
+        if transaction_rec.booking_transactions_engagement_instance:
+            engagement_instance_rec = self.session.query(EngagementInstance). \
+                filter(EngagementInstance.id == transaction_rec.booking_transactions_engagement_instance). \
+                first()
+            engagement_instance_rec.booking_status = 2
+
+        retdata = booking_obj.save()
+        retdata['msg'] = 'Successfully Cancelled Booking.'
+        email_content_type_list = [MEMBER_CANCELLED_BOOKING_MEMBER_MSG_ONSCREEN, MEMBER_CANCELLED_BOOKING_PROVIDER_MSG_ONSCREEN]
+        self.__send_push_notification_request(email_content_type_list, booking_transaction_id)
+        return retdata
+
+    def cancel_provider_booking(self, booking_transaction_id, hlc_roles_data):
+        providers = hlc_roles_data['providers']
+        divisions = hlc_roles_data['divisions']
+        profile_name = hlc_roles_data['profile_name']
+        if profile_name != 'individual provider':
+            return {'errCode': 1, 'msg': str(InvalidAuthorization('profile'))}
+
+        booking_transaction_rec = self.session.query(BookingTransaction). \
+            filter(BookingTransaction.id == booking_transaction_id).first()
+        booking_transaction_rec = orm_to_dict_v2(booking_transaction_rec)
+        booking_rec = self.session.query(Booking). \
+            filter(Booking.id == booking_transaction_rec['booking_transactions2booking']).first()
+        booking_rec = orm_to_dict_v2(booking_rec)
+        if booking_rec['booking2provider'] not in providers:
+            return {'errCode': 1, 'msg': str(InvalidAuthorization('provider'))}
+        if booking_rec['booking2div_org'] not in divisions:
+            return {'errCode': 1, 'msg': str(InvalidAuthorization('division'))}
+
+        booking_table_id = booking_transaction_rec['booking_transactions2booking']
+        booking_obj = BookingObj(booking_tbl_id=booking_table_id)
+        transaction_rec = booking_obj.cancel_booking(booking_transaction_id)
+
+        #Resetting the engagement booking status to inital state, which is 2, user can now book the slot again.
+        if transaction_rec.booking_transactions_engagement_instance:
+            engagement_instance_rec = self.session.query(EngagementInstance). \
+                filter(EngagementInstance.id == transaction_rec.booking_transactions_engagement_instance). \
+                first()
+            engagement_instance_rec.booking_status = 2
+
+        retdata = booking_obj.save()
+        email_content_type_list = [PROVIDER_CANCELLED_BOOKING_MEMBER_MSG_ONSCREEN,PROVIDER_CANCELLED_BOOKING_PROVIDER_MSG_ONSCREEN]
+        self.__send_push_notification_request(email_content_type_list, booking_transaction_id)
+        retdata['msg'] = 'Successfully Cancelled Booking.'
+        return retdata
+
