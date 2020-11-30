@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<Leggero>
+    <HLCAPP>
+
+        <host>localhost</host>
+        <username>postgres</username>
+        <pwd>khan123</pwd>
+        <dbname>eng_20_11</dbname>
+        <schema>in_use</schema>
+
+    </HLCAPP>
+  <HLCAPPSERVER>
+      <host>0.0.0.0</host>
+      <port>4200</port>
+      <angular_dir>/home/asi_nyalazone/hlcapp-temp/HLCAPP/appserver/hlc-app/dist/hlc-app</angular_dir>
+  </HLCAPPSERVER>
+
+    <HLCSERVER>
+        <host>0.0.0.0</host>
+        <port>5000</port>
+        <angular_dir>/home/aneesh/nyalazone/HLC/HLCTEMP/hlcapp-temp/HLCAPP/appserver/hlc-app/dist/hlc-app</angular_dir>
+        <service_url>http://localhost:5000</service_url>
+    </HLCSERVER>
+    
+    <RAPTORSERVER>
+        <host>localhost</host>
+        <username>postgres</username>
+        <pwd>khan123</pwd>
+        <dbname>hlc_20</dbname>
+        <schema>in_use</schema>
+        <dbport>5002</dbport>
+        <whport>8082</whport>
+     </RAPTORSERVER>
+
+    <FUSIONEXPORT>
+       <HOST>127.0.0.1</HOST>
+       <PORT>1337</PORT>
+    </FUSIONEXPORT>
+
+    <RAPTORHOST>
+       <HOST>localhost</HOST>
+       <PORT>8082</PORT>
+       <DBPORT>5002</DBPORT>
+    </RAPTORHOST>
+
+    <HLCPATHS>
+        <Documents>/home/khan/nyalazone/HLCProject/hlc_download_path</Documents>
+        <DownloadServeDir>/home/khan/nyalazone/HLCProject/hlc_download_path</DownloadServeDir>
+      	<excelFilename>Add_Corporate_Employees.xlsx</excelFilename>
+      	<docIP>http://localhost:5000</docIP>
+        <chartConfigFile>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/Dashboard_Automate/chart_option_config.json</chartConfigFile>
+        <sidebar_file>/home/nyalazone-01/Downloads/sidebar1.csv</sidebar_file>
+        <navbar_file>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/HLC_Scripts/Roles_data/roles_files/navbar.csv</navbar_file>
+        <component_file>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/HLC_Scripts/Roles_data/roles_files/component.csv</component_file>
+        <component_items_file>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/HLC_Scripts/Roles_data/roles_files/component_items.csv</component_items_file>
+        <component_heirarchy_file>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/HLC_Scripts/Roles_data/roles_files/component_heirarchy.csv</component_heirarchy_file>
+        <reportDir>/home/nyalazone-01/Desktop/hlc/hlc_report/reports</reportDir>
+        <reportlabFilesDir>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/Report_Generation</reportlabFilesDir>
+        <reportChartConfigFile>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/Report_Generation/report_chart_config.json</reportChartConfigFile>
+        <hlc_log>/home/khan/nyalazone/HLCProject/report_chart_config1.txt</hlc_log>
+        <roles_data_path>/home/khan/nyalazone/HLCProject/hlcapp/HLCAPP/HLC_Scripts/Roles_data/roles_files</roles_data_path>
+        <association_component_file>/association_component_items_2.csv</association_component_file>
+        <association_sidebar_file>/association_sidebar.csv</association_sidebar_file>
+        <association_navbar_file>/association_navbar_2.csv</association_navbar_file>
+        <offline_assessment_log>/home/khan/nyalazone/HLCProject/offline_logfile.txt</offline_assessment_log>
+    </HLCPATHS>
+    <CommunicationManager>
+        <RABBITMQ>redis://localhost:6379/0</RABBITMQ>
+    </CommunicationManager>
+    <HLCVARS>
+       <num_schedule_recs>10</num_schedule_recs>
+        <num_schedule_recs_multiple_prac>1</num_schedule_recs_multiple_prac>
+        <temporaryDownloadFolder>/home/nyalazone-01/Documents/hlc_temp</temporaryDownloadFolder>
+	<comet_chat_api_key>2d709d312b83e59e180a5b2fac50967b65db982d</comet_chat_api_key>
+ 	<comet_chat_api_id>2148867437a6782</comet_chat_api_id>
+	 <comet_chat_create_user_url>https://api-us.cometchat.io/v2.0/users</comet_chat_create_user_url>
+   </HLCVARS>
+
+    <sslcertificates>
+       <ssl_private_key>/etc/letsencrypt/live/nztest.hlconsulting.co.za/privkey.pem</ssl_private_key>
+       <ssl_certificate>/etc/letsencrypt/live/nztest.hlconsulting.co.za/fullchain.pem</ssl_certificate>
+       <ssl_certificate_chain>/etc/letsencrypt/live/nztest.hlconsulting.co.za/chain.pem</ssl_certificate_chain>
+   </sslcertificates>
+
+    <MAILSERVER>
+       <SMTPSERVER>smtp.gmail.com</SMTPSERVER>
+       <PORT>587</PORT>
+       <report_email_sender>
+           <USERNAME>nzsolutiontest@gmail.com</USERNAME>
+           <PASSWORD>testingrenma</PASSWORD>
+       </report_email_sender>
+       <other_email_sender>
+           <USERNAME>nzsolutiontest@gmail.com</USERNAME>
+           <PASSWORD>testingrenma</PASSWORD>
+       </other_email_sender>
+   </MAILSERVER>
+    <ipAddress>http://localhost:4200</ipAddress>
+  <serverType>test</serverType>
+
+    <EmailServerType>test</EmailServerType>
+
+    <domainName>renmahealth.com</domainName>
+
+   <ELASTICSEARCH>
+        <INDEX_NAME>provider_search_v2</INDEX_NAME>
+       <DOCTYPE>_doc</DOCTYPE>
+        <SEARCH_MEMBER_INDEX>search_member_index</SEARCH_MEMBER_INDEX>
+        <SEARCH_CORPORATE_MEMBER_INDEX>search_corporate_member_index</SEARCH_CORPORATE_MEMBER_INDEX>
+       <HOST>http://localhost:9200/</HOST>
+       <ELASTIC_LOGPATH>/home/khan/nyalazone/HLCProject/hlc_download_path/elasticlog/</ELASTIC_LOGPATH>
+       <ELASTIC_USER>elastic</ELASTIC_USER>
+        <ELASTIC_PASSWORD>khan123</ELASTIC_PASSWORD>
+
+   </ELASTICSEARCH>
+    <CELERY>
+    <broker>redis://localhost:6379/0</broker>
+    <backend>redis://localhost:6379/0</backend>
+    </CELERY>
+
+    <CELERY_NOTIFICATION_CONF>
+        <broker>redis://localhost:6379/0</broker>
+        <backend>redis://localhost:6379/0</backend>
+    </CELERY_NOTIFICATION_CONF>
+    <NOTIFICATIONSERVER>
+        <host>0.0.0.0</host>
+        <port>7002</port>
+        <service_url>http://0.0.0.0:7002</service_url>
+        <timezone_for_notifs>Asia/Calcutta</timezone_for_notifs>
+    </NOTIFICATIONSERVER>
+
+    <PROVIDER_SEARCH>
+       <duration_hours>2</duration_hours>
+   </PROVIDER_SEARCH>
+<PEACH_PAYMENT>
+        <payment_portal_url>https://test.oppwa.com/v1/checkouts</payment_portal_url>
+        <payment_portal_entity_id>test</payment_portal_entity_id>
+        <payment_portal_authorization>test</payment_portal_authorization>
+    </PEACH_PAYMENT>
+<API_AUTHORISATION>
+    <WEBTOKEN>abcd</WEBTOKEN>
+    <DOCUMENT_ENCRYPTION>abcd</DOCUMENT_ENCRYPTION>
+    <WEBTOKEN_EXPIRY_SECS>5000</WEBTOKEN_EXPIRY_SECS>
+    <EMAIL_TOKEN_ENCRYPT>abcd</EMAIL_TOKEN_ENCRYPT>
+    <PAYMENT_DETAILS_ENCRYPTION_KEY>AI4Y5uVgLjx2GdYpOAMpw96AedngmAjFWEzb5HFWxNI=</PAYMENT_DETAILS_ENCRYPTION_KEY>
+    <EMAIL_TOKEN_ENCRYPT_HASHED>AI4Y5uVgLjx2GdYpOAMpw96AedngmAjFWEzb5HFWxNI=</EMAIL_TOKEN_ENCRYPT_HASHED>
+</API_AUTHORISATION>
+
+    <HLCSERVERACCESSLog>
+    <LogDir>/home/khan/nyalazone/HLCProject/hlcapp/logs/server_access_logs/</LogDir>
+    <AccessLog>/home/khan/nyalazone/HLCProject/hlcapp/logs/server_access_logs/access_logs/access_log.txt</AccessLog>
+    <LogLevel>DEBUG</LogLevel>
+</HLCSERVERACCESSLog>
+    <LG_APP_CORE_LOGS>
+    <LogDir>/home/khan/nyalazone/HLCProject/hlcapp/logs/app_core_log</LogDir>
+    <LogLevel>ERROR</LogLevel>
+</LG_APP_CORE_LOGS>
+
+    <smsconfig>
+        <username>ronald@hlconsulting.co.za</username>
+        <password>h379m7</password>
+        <member_register_sms_text>Thank you for registering on renmahealth.com. Your OTP for the registration process is %d. It'll expire in 10 minutes so complete the process soon.</member_register_sms_text>
+    </smsconfig>
+
+    <PEACH_PAYMENT>
+        <payment_portal_url>https://test.oppwa.com/v1/</payment_portal_url>
+        <payment_portal_entity_id>8ac7a4c97555c986017564de69d0153a</payment_portal_entity_id>
+        <payment_portal_authorization>OGFjN2E0Yzk3NTU1Yzk4NjAxNzU2NGRlNTExNzE1Mzd8TkFma0IyUmhDeA==</payment_portal_authorization>
+    </PEACH_PAYMENT>
+
+</Leggero>
