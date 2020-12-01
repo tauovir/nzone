@@ -1,0 +1,19 @@
+============Nyalazone============
+http://webmail.nyalazone.com/?_task=mail&_mbox=INBOX
+https://trello.com/b/TvnLIxxy/team-nz
+
+https://bitbucket.org/dashboard/repositories
+https://testcrm.assegai.co.za:4002/lg_admin/querySetup
+https://testcrm.assegai.co.za/#/sessions/signin
+
+
+=============Elastic Searhc=============
+============================Browser Query==================================
+http://localhost:9200/provider_core_data_2/_doc/39814771038?pretty
+http://127.0.0.1:9200/_cat/indices?v
+http://127.0.0.1:9200/provider_core_data_2/_search?pretty
+http://localhost:9200/provider_core_data_3/_count?pretty
+http://localhost:9200/provider_core_data_3/_search?q=provider_id:383
+http://localhost:9200/provider_core_data_3/_search?q=provider_id:383&pretty
+
+
