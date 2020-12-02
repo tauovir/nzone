@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<Leggero>
+    <LeggeroCache></LeggeroCache>
+	<LeggeroDB>
+        <host>localhost</host>
+		<pgport>5432</pgport>
+		<dbtype>postgres</dbtype>
+		<username>postgres</username>
+		<pwd>khan123</pwd>
+		<dbname>raptor_01_10</dbname>
+        <schema>leggero</schema>
+        <port>5002</port>
+	</LeggeroDB>
+
+	<ddsPipelineServer>
+		<host>localhost</host>
+		<port>5010</port>
+	</ddsPipelineServer>
+
+	<sockerServer>
+        <port>3001</port>
+        <certificates>
+            <private_key>...</private_key>
+            <certificate>...</certificate>
+        </certificates>
+    </sockerServer>
+
+	<LeggeroApp>
+		<MaxRecords>400</MaxRecords>
+	</LeggeroApp>
+	<LeggeroWHS>
+		<host>localhost</host>
+		<port>8082</port>
+		<outdir>/home/khan/nyalazone/RaptorProject/raptor_docs/DWS_DATA</outdir>
+		<LogDir>/home/khan/nyalazone/RaptorProject/raptor_docs/leggerologs/whs</LogDir>
+		<LogFile>WHS.log</LogFile>
+		<AccessLog>WHSAccess.log</AccessLog>
+		<LogLevel>DEBUG</LogLevel>
+	</LeggeroWHS>
+    <WHDatabase>
+        <host>localhost</host>
+		<pgport>5432</pgport>
+        <username>postgres</username>
+        <pwd>khan123</pwd>
+<!--		<dbname>asi_crm_prod_8july_v1</dbname>-->
+<!--	<dbname>consulting_manager_13sep_v1</dbname>-->
+<!--	<dbname>asi_crm_demo_16september_v1</dbname>-->
+	<dbname>raptor_01_10</dbname>
+        <schema>in_use</schema>
+    </WHDatabase>
+
+	<serverType>test</serverType>
+
+	<excelDir>/home/khan/nyalazone/RaptorProject/raptor_docs/excel/</excelDir>
+	<downloadDir>/home/khan/nyalazone/RaptorProject/raptor_docs/downloads/</downloadDir>
+	<download_service_name>raptor_download</download_service_name>
+
+	<ddsServer>
+        <host>0.0.0.0</host>
+        <port>5005</port>
+        <dirname>/home/khan/nyalazone/RaptorProject/raptor_docs/dds_data</dirname>
+    </ddsServer>
+
+	<DDS_APP_CORE_LOGS>
+		<LogDir>/home/khan/nyalazone/RaptorProject/logs/dds_logs</LogDir>
+		<LogLevel>DEBUG</LogLevel>
+	</DDS_APP_CORE_LOGS>
+
+	<DDS_PIPELINE_LOGS>
+		<LogDir>/home/khan/nyalazone/RaptorProject/logs/dds_pipeline_logs</LogDir>
+		<LogLevel>DEBUG</LogLevel>
+	</DDS_PIPELINE_LOGS>
+
+	<EMAILSENDER>
+		 <smtp_server_config>smtp.gmail.com</smtp_server_config>
+		 <smtp_port_config>587</smtp_port_config>
+		 <email_id_config>nzsolutiontest@gmail.com</email_id_config>
+		 <password_config>testingrenma</password_config>
+    	 <test_send_to_mail>nzsolutiontest@gmail.com</test_send_to_mail>
+	</EMAILSENDER>
+
+	<EmailServerType>test</EmailServerType>
+	<severDomain>test.com</severDomain>
+
+	<EMAIL_READER>
+		 <EMAIL_OUTPUT_PATH>home/khan/nyalazone/RaptorProject/raptor_docs/raptor_email_reader_files/</EMAIL_OUTPUT_PATH>
+	</EMAIL_READER>
+</Leggero>
+
+
