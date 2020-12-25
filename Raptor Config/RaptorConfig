@@ -60,6 +60,9 @@ email_configuration2project
 {"payload":{"name":"Gergeo Black22","email_type":"Case","description":"Gerge balck","wrkgrp_name":"Case BI","company_name":"SARS2","poll_frequency":6,"host":"127.0.0.0","port":2021,"server_type":"IMAP","email_id":"rock@gmail.com","to_email_id":"torock@yahoo.com","password":"mana1203","wrkgrp_id":294,"biz_org_id":15,"employee_id":25036,"emp_first_name":"Case","emp_last_name":"Poller SARS","id":null}}
 
 
+http://localhost:4202/lg_admin/login
+
+
 
 
 

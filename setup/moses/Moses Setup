@@ -49,5 +49,26 @@ MosesNew/dce/DCE/coreclasses>python create_potential_member_index.py
  
  ============Login in Pgadmin for moses========
  m  = 3cfd436919bc3107d68b912ee647f341	# double hashed
- upate password = Khan@123
+ upate password = Khan@12
+
+===================================
+
+
+
+
+npm rebuild node-sass
+nmp i
+
+ bm_root@asi.com
+pass = m (below one)
+
+UPDATE in_use."user"
+SET password='3cfd436919bc3107d68b912ee647f341' where user_name = 'bm_root@asi.com';
+
+
+
+UPDATE in_use."user"
+SET password='3cfd436919bc3107d68b912ee647f341',
+incorrect_attempt_count = 0
+where user_name = 'moho@gmail.com';
 

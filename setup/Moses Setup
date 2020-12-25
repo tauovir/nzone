@@ -10,6 +10,13 @@ pip install -r dce_requirements.txt
 5> goto main folder and run setup file
 python setup develop
 
+
+# New added
+ Run following files from coreclasses
+create_employee_index.py
+create_potential_member_index.py
+
+
 6> place Leggero_config.xml in common folder and make new directories as per the given path.and then change existing folder location to your created folder location
 example ( "logs" "moses path" at env level)
 
@@ -30,7 +37,13 @@ the add environment angular folder.
  appserver/dce> ng serve -o
  
  
- 
- 
  ============Git===
  moses-dev-aneesh
+
+==========Npm command===========
+npm i
+npm rebuild node-sass
+
+
+
+
