@@ -1,0 +1,76 @@
+===================Git Command===========
+git clone :  Bring repository that is hosted
+git add : Track your file and chnages on git
+git commit : save your file on git
+git Push -u origin <branch_name> : published your changes to git 
+git pull origin <master> : pull code from different branch
+add .( git add period) : git add all file
+git add f1 f2 f3 : add multiple file
+git remote -v :  check git origin
+
+#=============GIT BRANCH=========
+git branch : check branches
+git checkout branch_name : switch between branch
+git checkout -b branch_name :  create new branch
+git branch -d khan1 : Delete branch
+git branhc -a :  see all available branch
+
+git checkout model/khan1_file.txt : Send khan1_file file to previous state
+
+git diff khan1 :  show diffrence between two branch
+git diff :  show changes
+
+git commit -am "msg" : add and commit at same time: only work for modified fle
+
+=================UNDO GIT==================
+git reset :  unstaged files from staged state
+git reset HEAD~1 : undo last committed files
+
+HEAD : Means pointer to last commit
+Telling here to do something to last commit
+HEAD ~1 : ~1 tells further commit, so instead of last commit it goes to further 1 commit and last commit completely unstage 
+
+git reset 825e04378ce3d51c6d54bdedf1be6301f4ab707f : unstage to mentioned commit id
+
+git reset --hard 825e04378ce3d51c6d54bdedf1be6301f4ab707f : completelely remove code to this committed id
+
+========================GIT STASH======================
+Stash : secrete storage place:
+ we use git stash command , when are are working on particular branch and did not complete it, and we need to switch to diifferent branch 
+because we need to do some urgent work: Here we should not stage adn commit uncomplete work,therefore git stash place uncomplete code to temprary storage area. When we back to our working branch we can pop stash and start working on uncomplete task
+
+git stash : place code to temperrly storage
+git stash pop : bring back stashed code
+
+OR
+git stash save "message" : save your modified file to temporary space
+git stash list :  to see stash list
+git stash pop :  pop stash list oR bring stashed code which was not staged/commit
+ git stash pop just pop one by one stash(also delete stash simultanesously)
+
+git stash apply stash@{0}(stash_code) this command work same as git stash pop but does not delete any stash,using this command we can bring
+ code back of particular stash
+
+git stash clear: Clear all stash(free space)
+git stash drop stash@{1} :  drop particular stash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

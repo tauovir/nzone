@@ -1,0 +1,14 @@
+redis-cli shutdown
+
+
+rose@gmail.com
+
+
+rina.poonen@liberty.co.za
+
+
+
+
+BOOKING_RECORD_TYPE_HLC = 'MyWellApp'
+BOOKING_RECORD_TYPE_360 = 'MyHealthEngage'
+BOOKING_RECORD_TYPE_ENGAGEMENT = 'Engagement Wellness'
