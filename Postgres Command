@@ -24,3 +24,20 @@ OS: ubuntu(Bionic)
 # sudo apt-get update
 sudo apt-get install postgresql-10-postgis-2.4
 
+
+==================Backup postgres database using command line==============
+/usr/lib/postgresql/10/bin/pg_dump --file "/home/nyalazone/Documents/xxxx/dds_24_feb_search.sql" --host "localhost" --port "5432" --username "postgres" --verbose --role "postgres" --format=c --blobs "dds_09_02"
+
+
+
+===========PostgresSql==========
+sudo su postgres
+psql
+show all database name.
+psql>select datname from pg_database;
+
+Backup file:
+ pg_dump -U postgres -d dds_09_02 -w > /home/nyalazone/Documents/test1/khan101.sql;
+
+pg_dump -h localhost -p 5432 -U postgres -d nz_19_feb -t in_use.email_content | psql -h localhost -p 5432 -U postgres -d test_db1
+

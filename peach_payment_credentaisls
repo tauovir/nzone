@@ -1,0 +1,14 @@
+===============Peach Payment Testing Credentials==========
+url: https://sandboxconsole.peachpayments.com/#/login
+email:  manasphere@gmail.com
+password: 40Zd~}w?5
+
+
+Dummy Card:
+
+card : 4111111111111111
+cvv: 123
+exp_date : 21/24
+
+
+

@@ -1,0 +1,95 @@
+===================ORG Query==================
+http://0.0.0.0:5002/leggero_search/search
+{"param" : {"query": "NOMBANGO ", "size": 4},"query_name" :"get_organization_data"}
+
+
+http://0.0.0.0:5002/leggero_search/index_data/add
+
+{"index_name":"organisations_idx",
+"data":{"ORGANISATION_X_REF_ID": 19000019,
+              "TRADENAME": "cantMobile2","REGISTEREDNAME": "cantMobile3","SEARCH_TEXT":"cantMobile2 cantMobile3"}
+}
+
+http://0.0.0.0:5002/leggero_search/index_data/remove
+
+{"param" : {"TRADENAME": "cantMobile2"},"query_name" :"remove_org"}
+
+http://0.0.0.0:5002/leggero_search/index_data/update
+
+{"param": {"REGISTEREDNAME": "cantMobile3"}, "query_name": "update_org",
+
+"script": {
+        "lang": "painless",
+        "params": {
+            "tradename": "cantMobile1_updated",
+            "search_text": "cantMobile1_updated cantMobile2_updated",
+            "register_name": "cantMobile2_updated"
+        },
+        "source": "ctx._source.SEARCH_TEXT=params.search_text;ctx._source.TRADENAME=params.tradename;ctx._source.REGISTEREDNAME=params.register_name;"
+    }
+
+
+}
+
+
+============Individual Query====================
+http://0.0.0.0:5002/leggero_search/search
+
+{"param" : {"query": "NOMBANGO ", "size": 4},"query_name" :"get_individual_data"}
+
+http://0.0.0.0:5002/leggero_search/index_data/add
+
+{"index_name":"individuals_idx",
+"data":{"INDIVIDUAL_X_REF_ID": 19000019,
+              "FIRSTNAMES": "mobilekhan2","MAIDENNAME": "mobilekhan3","SEARCH_TEXT":"mobilekhan2 mobilekhan3","SURNAME":" mobilekhan4"}
+}
+
+http://0.0.0.0:5002/leggero_search/index_data/remove
+
+{"param" : {"FIRSTNAMES": "mobilekhan2"},"query_name" :"remove_individual_by_first_name"}
+
+http://0.0.0.0:5002/leggero_search/index_data/update
+
+{"param": {"FIRSTNAMES": "mobilekhan2"}, "query_name": "update_individual_by_first_name",
+
+"script": {
+        "lang": "painless",
+        "params": {
+            "firstname": "first_update",
+            "search_text": "cantMobile1_updated cantMobile2_updated",
+            "surname": "surname_update",
+            "maidenname" : "maiden_update"
+        },
+        "source": "ctx._source.SEARCH_TEXT=params.search_text;ctx._source.FIRSTNAMES=params.firstname;ctx._source.MAIDENNAME=params.maidenname;ctx._source.SURNAME=params.surname;"
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

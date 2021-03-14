@@ -1,0 +1,129 @@
+=========================ORG searc============================
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+   <SOAP-ENV:Header>
+</SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+   <cre:ORG_Search
+    xmlns:cre='urn:labour.gov.za/BP/Organisation/Create'
+    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+    <ORG_Search_Data>
+        <Trade_Name>90</Trade_Name>
+        <Registration_Name>1234567890</Registration_Name>
+        <ID_Type></ID_Type>
+        <ID_Value></ID_Value>
+    </ORG_Search_Data>
+</cre:ORG_Search>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+
+
+
+================== Individula Custom Searhc==============
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+   <SOAP-ENV:Header>
+</SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+   <cre:IND_Search
+    xmlns:cre='urn:labour.gov.za/BP/Individual/Create'
+    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+    <IND_Search_Data>
+        <firstnames></firstnames>
+         <surname>GAMIET</surname>
+          <maidenname></maidenname>
+           <ID_Type></ID_Type>
+            <ID_Value></ID_Value>
+    </IND_Search_Data>
+</cre:IND_Search>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+
+============Individual Smart searhc========
+	<?xml version="1.0" encoding="UTF-8"?>
+	<SOAP-ENV:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+	   <SOAP-ENV:Header>
+	</SOAP-ENV:Header>
+	   <SOAP-ENV:Body>
+	   <cre:IND_SmartSearch
+	    xmlns:cre='urn:labour.gov.za/BP/Individual/Create'
+	    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+	    <IND_Search_Data>
+		<SearchTerm>GAMIET</SearchTerm>
+	    </IND_Search_Data>
+	</cre:IND_SmartSearch>
+	   </SOAP-ENV:Body>
+	</SOAP-ENV:Envelope>
+
+
+
+
+
+==================================Individual Create and update===============================
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+   <SOAP-ENV:Header>
+</SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+   <cre:DEL_Individual_BP_Create_MT
+	xmlns:cre='urn:labour.gov.za/BP/Individual/Create'
+	xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+	<Control>
+		<Individual_XREF_ID/>
+		<BP_Type>IND</BP_Type>
+		<BP_Number/>
+		<GUID_ID>3CP_15022021145121_0000000000020681</GUID_ID>
+		<Sender_ID>3CP</Sender_ID>
+	</Control>
+	<Individual_Details>
+		<Source_ID>73</Source_ID>
+		<ID_Type>76</ID_Type>
+		<ID_Number>cs</ID_Number>
+		<ID_Status></ID_Status>
+		<ID_Date_From></ID_Date_From>
+		<ID_Date_To></ID_Date_To>
+		<First_Name>sublime</First_Name>
+		<Last_Name>sublime_editor</Last_Name>
+		<Maiden_Name>sublime_vid1222</Maiden_Name>
+		<Initials>initails12</Initials>
+		<Date_of_Birth>2010-02-09</Date_of_Birth>
+		<Date_of_Death>2003-09-10</Date_of_Death>
+		<Marital_Status></Marital_Status>
+		<Gender></Gender>
+		<Title></Title>
+	</Individual_Details>
+	
+</cre:DEL_Individual_BP_Create_MT>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

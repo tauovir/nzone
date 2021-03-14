@@ -1,0 +1,77 @@
+Provider Payouts:
+payouts: when hlc portal pay to provider.
+
+7dec to 13 dec: get all provider payments(which appointment gets completed and paid)
+Deu date will be confugured:& 7 days
+total sum : 500
+provider_1:consulted(member1, member2,member3), fees : 100,150,50 respectively : sum =300
+
+provider_2:consulted(member4, member5,member6), fees : 50,100,50 respectively : sum =200
+
+
+step2: 
+download: csv of above batch(7dec-13dec) to upload to peachpayment
+
+On click view_more :
+we can view providers those are going to receive pament from hlcportal
+
+Download Peach Payment verification and staus of upload csv(record): it is manual process
+
+once downloaded peach statement mark payment status.
+
+Some queries:
+should we provide weekly report of entire providers irrespective of pyaout status of prevous payment.
+what we do if due date gets over,
+how to identify payment status of records which we have generated/upload to peach payment account.
+
+
+
+last 3 monthnts
+
+(booking slot load more)
+=======================
+amount = 
+status = json(
+
+
+dummy entry(DB)
+
+config = 7 days
+db = 6-7 tareek
+
+last entry se alg 7 days  (
+
+22 tareek 14-21
+
+
+ek entry
+
+
+7-14( if no entries) discuss is dummy(
+
+ ek dumm	
+
+
+
+
+XML:
+duedate gap,
+start date_gap
+persent_deduction
+
+two new columns:
+payout status,payout_desc(json())
+
+New Table:
+ek new dummy entry for start date,
+
+persist payout data when requested,
+start_date and end_date,next date shuld be from end date but les than today date
+
+
+
+
+
+
+
+

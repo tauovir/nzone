@@ -1,0 +1,4 @@
+
+CREATE UNIQUE INDEX ON in_use.provider_view (id);
+
+REFRESH MATERIALIZED VIEW in_use.provider_view;

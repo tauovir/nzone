@@ -1,6 +1,7 @@
 ================================================Run Server==============================
 /home/khan/nyalazone/RaptorProject/raptor/Raptor/appserver/raptor
-ng serve
+ng serve   OR
+ng serve --port 4202
 
 /home/khan/nyalazone/RaptorProject/raptor/Raptor/dbserver
 python Leggero_App.py
@@ -10,6 +11,24 @@ python app.py
 
 
 
+====================Run Pipeline server===============
+raptor/Raptor/dds_server/dds_pipeline_core -> python DDS_Pipeline_Server.py
+raptor/Raptor/dds_server/dds_pipeline_core -> celery -A DDS_Piperline_Trigger_Server worker --loglevel=info
+
+
+
+=============Wharehouse setup==========
+whserver me Leggero_WS_Instance.py file hai
+checkech xml for <WHDatabase> and set database(moses database),user and pass
+got to raptor/Raptor/whserver$ 
+
+Run python Start_LeggeroREST.py 
+
+
+#===================++File setup============
+filesetup.py
+
+tree_node_setup.py
 ======================Configuration File===========================
 commons/Leggaro_Config.xml
 
@@ -38,29 +57,6 @@ sudo -i -u postgres psql
 user = admin
 pass = admin
 
-email_type #
-email_id #
-server_type#
-host#
-port#
-status
-password #
-description#
-name#
-polling_on
-poll_frequency
-app_username
-email_configuration2project
-
-
-
-{"payload":{"name":"Gergeo Black22","email_type":"Case","description":"Gerge balck","poll_frequency":6,"host":"127.0.0.0","port":2021,"server_type":"IMAP","email_id":"rock@gmail.com","password":"mana1203","status":"Active","email_configuration2project":2,"id":null}}
-
-
-{"payload":{"name":"Gergeo Black22","email_type":"Case","description":"Gerge balck","wrkgrp_name":"Case BI","company_name":"SARS2","poll_frequency":6,"host":"127.0.0.0","port":2021,"server_type":"IMAP","email_id":"rock@gmail.com","to_email_id":"torock@yahoo.com","password":"mana1203","wrkgrp_id":294,"biz_org_id":15,"employee_id":25036,"emp_first_name":"Case","emp_last_name":"Poller SARS","id":null}}
-
-
-http://localhost:4202/lg_admin/login
 
 
 

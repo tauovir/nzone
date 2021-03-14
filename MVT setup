@@ -1,0 +1,33 @@
+python setup.py develop
+
+sudo apt-get build-dep python-psycopg2
+pip install psycopg2-binary
+
+
+Step1:
+http://localhost:5005/start_pipeline
+{"pipeline_id":11,"instance_data":{"pipeline_instance2pipeline":11,"name":"market_run101"}}
+
+2 > it will call-> add_trigger	(url) (cehrrypy) with param:
+
+        try:
+            requests.post(url=self.pipeline_server_instance_trigger_url, json={
+                "pipeline_id": self.pipeline_id,
+                "instance_id": self.instance_id,
+            })
+
+3> it will call -> trigger_pipeline_instance (dds app)	 with param
+ r = requests.post(url=pipeline_trigger, json={
+            "pipeline_id": kw['pipeline_id'],
+            "instance_id": kw['instance_id'],
+            "schedule_id": kw.get('schedule_id'),
+            "schedule_instance_id": kw.get('schedule_instance_id'),
+        })
+
+
+4> it wil send to 'run_pipeline_node_celery' (url)
+
+
+virtualenv -p /usr/bin/python2.7 env
+
+

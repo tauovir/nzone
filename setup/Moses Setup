@@ -2,7 +2,7 @@
 1>Create MosisProject folder, and enter into it
 2> Now Create virtual env for python2
 easy_install --version
-virtualenv -p /usr/bin/python test_env
+virtualenv -p /usr/bin/python env-name
 3> activate environment
 4> install requirement.txt
 pip install -r dce_requirements.txt 

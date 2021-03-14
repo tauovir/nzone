@@ -1,0 +1,50 @@
+=============================Oracle queries===================
+show user/users
+
+
+
+
+CREATE USER books_admin IDENTIFIED BY MyPassword;
+CREATE USER books_admin IDENTIFIED BY MyPassword;
+
+GRANT CONNECT, RESOURCE, DBA TO books_admin;
+GRANT CREATE SESSION GRANT ANY PRIVILEGE TO books_admin;
+GRANT UNLIMITED TABLESPACE TO books_admin;
+
+
+
+CREATE USER khan IDENTIFIED BY khan123;
+
+grant all privileges to khan identified by khan;
+
+
+
+====================Check current schema============
+SELECT SYS_CONTEXT('USERENV','CURRENT_SCHEMA') FROM DUAL
+
+
+select * from global_name
+
+SELECT ora_database_name FROM dual
+
+=====================
+create or replace TRIGGER ICD_VALUE_INSERT_TRG 
+AFTER INSERT ON ICD_VALUE 
+REFERENCING OLD AS OLD NEW AS NEW 
+FOR EACH ROW
+  declare check_var number;
+BEGIN
+SELECT count(idvalue) INTO check_var FROM ICD_VALUE_TRG WHERE idvalue = :NEW.idvalue AND :NEW.status = 'Y';
+if check_var > 0 then
+ Raise_Application_Error (-20100, 'ValueId and status alrady exist');
+end if;
+
+ INSERT INTO ICD_VALUE_TRG(idvalue, status)
+   VALUES(:NEW.idvalue,:NEW.status);
+END;
+
+
+delete from icd_value;
+
+INSERT INTO icd_value (id,idvalue,status) VALUES(3,13,'N');
+

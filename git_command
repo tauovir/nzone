@@ -55,6 +55,10 @@ git stash clear: Clear all stash(free space)
 git stash drop stash@{1} :  drop particular stash
 
 
+=====================GET Undo Laste pull requet============
+git reflog
+git reset --hard HEAD@{1} : it will reset your local code to specified head
+
 
 
 

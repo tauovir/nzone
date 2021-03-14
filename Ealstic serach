@@ -212,6 +212,14 @@ GET /proxy20/_doc/11539075581182?pretty
 
 
 
+================Using Username and password curl request==============
+
+curl -X GET  -u elastic:khan123 "http://localhost:9200/provider_search_v2/_search?q=provider_id:436&pretty" -H 'Content-Type: application/json' -d'
+{
+ "query": { "match": { "provider_id":436 } }
+}
+'
+
 
 
 

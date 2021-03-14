@@ -1,0 +1,101 @@
+from Raptor.commons.dynamic_name_constants import *
+
+
+class DynamicNameGenerator:
+    """
+    CASE - $$
+    FOMART - |
+    newfile$current_date$.csv
+    newfile$current_date|YYYY-MM-DD$.csv
+    """
+    def __init__(self, name,format = 'current_date|YYYY-MM-DD'):
+        """"
+        TODO: %y%m%b, %y|%m|%b
+        """
+        self.name = name
+        self.dynamic_substring = self.extract_dynamic_substring()
+        self.format = format
+
+    def get_name(self):
+        if not self.dynamic_substring:
+            return self.name
+        return self.get_dynamic_name()
+            # date_to_string = [FORMAT_DICT[i] for i in format.split("-")]
+            # date_to_string = ["%{}".format(i[0]) for i in format.split("%")]
+
+    def get_dynamic_name(self):
+        case, format = self.extract_case_and_format()
+        func_obj = case_dict_func(case.upper())
+        # print(case, format, ">>", type(format))
+        if not func_obj:
+            return self.name
+        try:
+            if format:
+                date_formatter = [i for i in format.split("-")]
+                date_to_string = '-'.join([FORMAT_DICT[frt] for frt in date_formatter])
+            else:
+                date_to_string = FORMAT_DICT['DEFAULT']
+            # print("Everything is fine. Wait...")
+        except Exception as e:
+            print(str(e))
+            print("Everything is fine. Wait...")
+            # date_to_string = FORMAT_DICT['DEFAULT']
+        output_substring = func_obj.strftime(date_to_string)
+        return self.replace_dynamic_substring(output_substring)
+
+    def replace_dynamic_substring(self, output_substring):
+        replace_to = "{}{}{}".format(CASE_CONSTANT, self.dynamic_substring, CASE_CONSTANT)
+        replace_with = output_substring
+        return self.name.replace(replace_to, replace_with)
+
+    def extract_dynamic_substring(self):
+        try:
+            dynamic_substring = self.name.split(CASE_CONSTANT)[1:-1][0]
+        except Exception as e:
+            # print("Everything is fine. Wait...")
+            dynamic_substring = None
+        return dynamic_substring
+
+    def extract_case_and_format(self):
+        case, format = None, None
+        group = self.dynamic_substring.split(FORMAT_CONSTANT)
+        case = group[0]
+        if len(group)>1:
+            format = group[1]
+        return case, format
+
+#==============================
+    def get_dynamic_name_v1(self):
+        case, format = self._get_format_case()
+        func_obj = case_dict_func(case.upper())
+
+        if not func_obj:
+            return self.name
+            date_to_string = format if format else FORMAT_DICT['DEFAULT']
+
+        output_substring = func_obj.strftime(date_to_string)
+        print(output_substring)
+        return self.replace_dynamic_substring(output_substring)
+
+    def _get_format_case(self):
+        case, format = None, None
+        group = self.format.split(FORMAT_CONSTANT)
+        case = group[0]
+        if len(group) > 1:
+            format = group[1]
+
+        print  case, format
+        return case, format
+
+
+# print DynamicNameGenerator("hello$current_date|%y_%m%d$.csv").get_name()
+
+
+if __name__ == "__main__":
+    filename = "newfile$current_date$.txt"
+    obj = DynamicNameGenerator(filename)
+    name = obj.get_name()
+    print("name:",name)
+    # print("self.dynamic_substring :",obj.dynamic_substring )
+
+
